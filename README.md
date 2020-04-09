@@ -1,3 +1,7 @@
+# HALF-LIFE CLASSIC
+**Half-Life Classic** is Pheonix's attempt to re-create all the features that Valve removed in *Half-Life.* While it returns removed features, it also adds new ones.
+<a href="https://www.moddb.com/mods/half-life-classic-2020" title="View Half-Life Classic (2020) on Mod DB" target="_blank"><img src="https://button.moddb.com/popularity/medium/mods/44974.png" alt="Half-Life Classic (2020)" /></a>
+
 Half Life 1 SDK LICENSE
 ======================
 
@@ -19,17 +23,11 @@ LIMITATION OF LIABILITY.  IN NO EVENT SHALL VALVE OR ITS SUPPLIERS BE LIABLE FOR
 If you would like to use the SDK for a commercial purpose, please contact Valve at sourceengine@valvesoftware.com.
 
 
-Half-Life 1
-======================
-
-This is the README for the Half-Life 1 engine and its associated games.
-
-Please use this repository to report bugs and feature requests for Half-Life 1 related products.
 
 Reporting Issues
 ----------------
 
-If you encounter an issue while using Half-Life 1 games, first search the [issue list](https://github.com/ValveSoftware/halflife/issues) to see if it has already been reported. Include closed issues in your search.
+If you encounter an issue while using Half-Life 1 games, first search the [issue list](https://github.com/phoenixprojectsoftware/halflife-classic/issues) to see if it has already been reported. Include closed issues in your search.
 
 If it has not been reported, create a new issue with at least the following information:
 
