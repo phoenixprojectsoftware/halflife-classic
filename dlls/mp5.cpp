@@ -22,7 +22,7 @@
 #include "player.h"
 #include "soundent.h"
 #include "gamerules.h"
-
+#include "game.h"
 enum mp5_e
 {
 	MP5_LONGIDLE = 0,
@@ -125,8 +125,13 @@ BOOL CMP5::Deploy( )
 }
 
 
+
 void CMP5::PrimaryAttack()
 {
+#ifndef CLIENT_DLL
+	int mp5_old_rate = sv_mp5_old_rate.value;
+
+#endif
 	// don't fire underwater
 	if (m_pPlayer->pev->waterlevel == 3)
 	{
@@ -186,9 +191,9 @@ void CMP5::PrimaryAttack()
 		m_pPlayer->SetSuitUpdate("!HEV_AMO0", FALSE, 0);
 
 	m_flNextPrimaryAttack = GetNextAttackDelay(0.1);
-
 	if ( m_flNextPrimaryAttack < UTIL_WeaponTimeBase() )
-		m_flNextPrimaryAttack = UTIL_WeaponTimeBase() + 0.1;
+		if (sv_mp5_old_rate.value==0) m_flNextPrimaryAttack = UTIL_WeaponTimeBase() + 0.1;
+	if (sv_mp5_old_rate.value == 1) m_flNextPrimaryAttack = UTIL_WeaponTimeBase() + 0.09;
 
 	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + UTIL_SharedRandomFloat( m_pPlayer->random_seed, 10, 15 );
 }
