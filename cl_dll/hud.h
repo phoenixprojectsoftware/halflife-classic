@@ -91,7 +91,6 @@ struct HUDLIST {
 //
 #include "voice_status.h" // base voice handling class
 #include "hud_spectator.h"
-#include "hud_speedometer.h"
 
 
 //
