@@ -28,7 +28,6 @@
 #include <string.h> // strcpy
 #include <stdlib.h> // atoi
 #include <ctype.h>  // isspace
-#include <cvardef.h>
 
 #ifdef CLIENT_DLL
 	// Spectator Mode
@@ -2464,14 +2463,13 @@ void PM_NoClip()
 	fraction = ( maxscaledspeed / spd ) * 0.65; //Returns the modifier for the velocity
 	
 	VectorScale( pmove->velocity, fraction, pmove->velocity ); //Crop it down!.
-}
-*/
+}*/
+
 /*
 =============
 PM_Jump
 =============
 */
-extern cvar_t* cl_autojump;
 void PM_Jump (void)
 {
 	int i;
@@ -2552,8 +2550,8 @@ void PM_Jump (void)
 		return;		// in air, so no effect
 	}
 
-	if (cl_autojump->value==1) if ( pmove->oldbuttons & IN_JUMP )
-		return;		// don't pogo stick
+	/*if ( pmove->oldbuttons & IN_JUMP )
+		return;		// don't pogo stick*/
 
 	// In the air now.
     pmove->onground = -1;
