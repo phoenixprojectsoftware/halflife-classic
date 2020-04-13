@@ -2,8 +2,7 @@
 **Half-Life Classic** is Pheonix's attempt to re-create all the features that Valve removed in *Half-Life.* While it returns removed features, it also adds new ones.
 
 <a href="https://www.moddb.com/mods/half-life-classic-2020" title="View Half-Life Classic (2020) on Mod DB" target="_blank"><img src="https://button.moddb.com/popularity/medium/mods/44974.png" alt="Half-Life Classic (2020)" /></a>
-
-[![]("https://gamebanana.com/gamefiles/embeddables/11309?type=large")](https://gamebanana.com/gamefiles/11309)
+<a href="https://gamebanana.com/gamefiles/11309"><img src="https://gamebanana.com/gamefiles/embeddables/11309?type=large"/></a>
 Half Life 1 SDK LICENSE
 ======================
 
