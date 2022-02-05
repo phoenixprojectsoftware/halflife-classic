@@ -90,7 +90,6 @@ cvar_t	*cl_bob;
 cvar_t	*cl_bobup;
 cvar_t	*cl_waterdist;
 cvar_t	*cl_chasedist;
-cvar_t* cl_won;
 cvar_t* cl_bobtilt;
 
 // These cvars are not registered (so users can't cheat), so set the ->value field directly
@@ -1724,7 +1723,6 @@ void V_Init (void)
 	cl_waterdist		= gEngfuncs.pfnRegisterVariable( "cl_waterdist","4", 0 );
 	cl_chasedist		= gEngfuncs.pfnRegisterVariable( "cl_chasedist","112", 0 );
 	cl_bobtilt			= gEngfuncs.pfnRegisterVariable("cl_bobtilt", "1", 0);
-	cl_won				= gEngfuncs.pfnRegisterVariable("cl_won", "1", 0);
 }
 
 
