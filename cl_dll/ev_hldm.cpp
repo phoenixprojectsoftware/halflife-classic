@@ -71,6 +71,9 @@ void EV_SnarkFire( struct event_args_s *args  );
 
 
 void EV_TrainPitchAdjust( struct event_args_s *args );
+
+void MuzzleFlash(int index, const cl_entity_s* entity);
+void MuzzleFlash(int index, float r, float g, float b, float a, float radius, float life, float decay, vec3_t vecOrigin = vec3_t(0, 0, 0));
 }
 
 #define VECTOR_CONE_1DEGREES Vector( 0.00873, 0.00873, 0.00873 )
@@ -85,6 +88,42 @@ void EV_TrainPitchAdjust( struct event_args_s *args );
 #define VECTOR_CONE_10DEGREES Vector( 0.08716, 0.08716, 0.08716 )
 #define VECTOR_CONE_15DEGREES Vector( 0.13053, 0.13053, 0.13053 )
 #define VECTOR_CONE_20DEGREES Vector( 0.17365, 0.17365, 0.17365 )
+
+void MuzzleFlash(int index, float r, float g, float b, float a, float radius, float life, float decay, vec3_t vecOrigin)
+{
+	cl_entity_s* entity = gEngfuncs.GetViewModel();
+
+	dlight_s* dl = gEngfuncs.pEfxAPI->CL_AllocDlight(entity->index);
+	dlight_s* el = gEngfuncs.pEfxAPI->CL_AllocElight(entity->index);
+	if (dl)
+	{
+		if (vecOrigin != vec3_t(0, 0, 0))
+			dl->origin = vecOrigin;
+		else
+			dl->origin = entity->attachment[index];
+
+		dl->color.r = r * a;
+		dl->color.g = g * a;
+		dl->color.b = b * a;
+		dl->die = gEngfuncs.GetClientTime() + life;
+		dl->radius = radius;
+		dl->decay = decay;
+	}
+	if (el)
+	{
+		if (vecOrigin != vec3_t(0, 0, 0))
+			el->origin = vecOrigin;
+		else
+			el->origin = entity->attachment[index];
+
+		el->color.r = r * a;
+		el->color.g = g * a;
+		el->color.b = b * a;
+		el->die = gEngfuncs.GetClientTime() + life;
+		el->radius = radius;
+		el->decay = decay;
+	}
+}
 
 
 // play a strike sound based on the texture that was hit by the attack traceline.  VecSrc/VecEnd are the
@@ -932,14 +971,21 @@ void EV_FireGauss( event_args_t *args )
 				0.1,
 				m_fPrimaryFire ? 1.0 : 2.5,
 				0.0,
-				m_fPrimaryFire ? 128.0 : flDamage,
+				(m_fPrimaryFire ? 128.0 : flDamage) / 255.0,
 				0,
 				0,
 				0,
-				m_fPrimaryFire ? 255 : 255,
-				m_fPrimaryFire ? 128 : 255,
-				m_fPrimaryFire ? 0 : 255
+				(m_fPrimaryFire ? 255 : 255) / 255.0,
+				(m_fPrimaryFire ? 128 : 255) / 255.0,
+				(m_fPrimaryFire ? 0 : 255) / 255.0
 			);
+			float alpha = (m_fPrimaryFire ? 125.0f : flDamage);
+			if (EV_IsLocal(idx))
+				MuzzleFlash(0, (m_fPrimaryFire ? 255 : 255), (m_fPrimaryFire ? 128 : 255), (m_fPrimaryFire ? 0 : 255), alpha / 255.0, alpha * 2.4, alpha / 150.0, alpha * 5.5);
+			else
+			{
+				MuzzleFlash(0, (m_fPrimaryFire ? 255 : 255), (m_fPrimaryFire ? 128 : 255), (m_fPrimaryFire ? 0 : 255), alpha / 255.0, alpha * 2.4, alpha / 150.0, alpha * 5.5, origin);
+			}
 		}
 		else
 		{
@@ -949,13 +995,13 @@ void EV_FireGauss( event_args_t *args )
 				0.1,
 				m_fPrimaryFire ? 1.0 : 2.5,
 				0.0,
-				m_fPrimaryFire ? 128.0 : flDamage,
+				(m_fPrimaryFire ? 128.0 : flDamage) / 255.0,
 				0,
 				0,
 				0,
-				m_fPrimaryFire ? 255 : 255,
-				m_fPrimaryFire ? 128 : 255,
-				m_fPrimaryFire ? 0 : 255
+				(m_fPrimaryFire ? 255 : 255) / 255.0,
+				(m_fPrimaryFire ? 128 : 255) / 255.0,
+				(m_fPrimaryFire ? 0 : 255) / 255.0
 			);
 		}
 
