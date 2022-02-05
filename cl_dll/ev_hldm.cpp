@@ -72,7 +72,7 @@ void EV_SnarkFire( struct event_args_s *args  );
 
 void EV_TrainPitchAdjust( struct event_args_s *args );
 
-void MuzzleFlash(int index, const cl_entity_s* entity);
+//void MuzzleFlash(int index, const cl_entity_s* entity);
 void MuzzleFlash(int index, float r, float g, float b, float a, float radius, float life, float decay, vec3_t vecOrigin = vec3_t(0, 0, 0));
 }
 
@@ -1429,6 +1429,7 @@ enum EGON_FIREMODE { FIRE_NARROW, FIRE_WIDE};
 
 BEAM *pBeam;
 BEAM *pBeam2;
+dlight_s* pLight;
 
 void EV_EgonFire( event_args_t *args )
 {
@@ -1510,6 +1511,17 @@ void EV_EgonFire( event_args_t *args )
 				 pBeam->flags |= ( FBEAM_SINENOISE );
  
 			pBeam2 = gEngfuncs.pEfxAPI->R_BeamEntPoint ( idx | 0x1000, tr.endpos, iBeamModelIndex, 99999, 5.0, 0.08, 0.7, 25, 0, 0, r, g, b );
+
+			pLight = gEngfuncs.pEfxAPI->CL_AllocDlight(idx);
+
+			if (pLight)
+			{
+				pLight->color = { (byte)r, (byte)g, (byte)b };
+				pLight->origin = vecSrc;
+				pLight->radius = 0;
+				pLight->decay = 512.0f * 1.5f;
+				pLight->die = gEngfuncs.GetClientTime() + 999999.0f;
+			}
 		}
 	}
 }
@@ -1540,6 +1552,12 @@ void EV_EgonStop( event_args_t *args )
 		{
 			pBeam2->die = 0.0;
 			pBeam2 = NULL;
+		}
+
+		if (pLight)
+		{
+			pLight->die = gEngfuncs.GetClientTime() + 0.75f;
+			pLight = NULL;
 		}
 	}
 }
